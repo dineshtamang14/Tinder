@@ -8,7 +8,8 @@ import FlashOnIcon from "@material-ui/icons/FlashOn";
 import IconButton from "@material-ui/core/IconButton";
 
 function SwipeButtons() {
-  return <div className="swipeButtons">
+  return (
+    <div className="swipeButtons">
       <IconButton className="swipeButtons__repeat">
           <ReplayIcon fontSize="large" />
       </IconButton>
@@ -24,7 +25,8 @@ function SwipeButtons() {
       <IconButton className="swipeButtons__lightning">
           <FlashOnIcon fontSize="large" />
       </IconButton>
-  </div>;
+  </div>
+  );
 }
 
 export default SwipeButtons;
