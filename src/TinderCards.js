@@ -5,12 +5,12 @@ import TinderCard from 'react-tinder-card';
 function TinderCards() {
     const [people, setPeople] = useState([{
         name: "Dinesh Tamang",
-        url: ""
+        url: "https://wallpapercave.com/uwp/uwp699607.jpeg"
     },
     {
         name: "Selena Gomez",
-        url: ""
-    }])
+        url: "https://wallpapercave.com/dwp1x/wc1709274.jpg"
+    }]);
 
     const swiped = (direction, nameToDelete) => {
         console.log("removing: " + nameToDelete);
