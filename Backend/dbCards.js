@@ -1,8 +1,14 @@
 import mongoose from "mongoose"
 
 const cardSchema = mongoose.Schema({
-    name: String,
-    imgUrl: String,
+    name: {
+        type: String,
+        required: true
+    },
+    imgUrl: {
+        type: String,
+        required: true
+    }
 });
 
 
