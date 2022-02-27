@@ -3,7 +3,7 @@ import mongoose from "mongoose"
 import Cards from "./dbCards.js";
 import Cors from "cors";
 import multer from "multer";
-import path from "path";
+import uuid from "uuid";
 
 const app = express();
 const connection_url = "mongodb+srv://dinesh:dinesh1997@cluster0.cuuqa.mongodb.net/Tinder-DB?retryWrites=true&w=majority"
@@ -23,30 +23,19 @@ mongoose.connect(connection_url, {
 // define storage for the image
 const storage = multer.diskStorage({
     // destination for file
-    destination: './images',
+    destination: (req, file, cb) => {
+        cb(null, 'images');
+    },
 
     // add extension to image
     filename:function(request, file, callback){
-       return callback(null, `${Date.now()}_${file.fieldname}${path.extname(file.originalname)}`); 
+        const { originalname } = file;
+       return callback(null, `${uuid.v4()}_${originalname}`); 
     }
 });
-
-const fileFilter = (err, file, callback) => {
-    if(file.mimetype === 'image/jpeg' || file.mimetype === 'image/png'){
-        callback(null, true);
-    } else {
-        callback(null, false);
-    }
-}
 
 // upload parameters for multer 
-const upload = multer({
-    storage: storage,
-    limits: {
-        fieldSize: 1024 * 1024 * 10,
-    },
-    fileFilter: fileFilter,
-});
+const upload = multer({ storage });
 
 const errHandler = (err, req, res, next) => {
     if(err instanceof multer.MulterError){
@@ -65,7 +54,7 @@ app.post("/tinder/card", upload.single("profile"), (req, res) => {
     //     name: req.body.name,
     //     imgUrl: `http://localhost:8000/images/${req.file.filename}`
     // }
-    console.log(req.file);
+    // console.log(req.file);
     const newData = new Cards({
         name: req.body.name,
         imgUrl: `http://localhost:8000/${req.file.path}`
