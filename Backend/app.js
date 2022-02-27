@@ -23,9 +23,7 @@ mongoose.connect(connection_url, {
 // define storage for the image
 const storage = multer.diskStorage({
     // destination for file
-    destination: (req, file, cb) => {
-        cb(null, './images');
-    },
+    destination: './images',
 
     // add extension to image
     filename:function(request, file, cb){
