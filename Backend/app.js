@@ -55,7 +55,7 @@ app.post("/tinder/card", upload.single("profile"), (req, res) => {
     // console.log(req.file);
     const newData = new Cards({
         name: req.body.name,
-        imgUrl: `http://localhost:8000/${req.file.path}`
+        imgUrl: `https://tinder-api.herokuapp.com/${req.file.path}`
     });
 
     newData.save()
