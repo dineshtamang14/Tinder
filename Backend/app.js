@@ -3,7 +3,7 @@ import mongoose from "mongoose"
 import Cards from "./dbCards.js";
 import Cors from "cors";
 import multer from "multer";
-import uuid from "uuid";
+import { v4 as uuidv4 } from 'uuid';
 
 const app = express();
 const connection_url = "mongodb+srv://dinesh:dinesh1997@cluster0.cuuqa.mongodb.net/Tinder-DB?retryWrites=true&w=majority"
@@ -24,13 +24,13 @@ mongoose.connect(connection_url, {
 const storage = multer.diskStorage({
     // destination for file
     destination: (req, file, cb) => {
-        cb(null, 'images');
+        cb(null, './images');
     },
 
     // add extension to image
-    filename:function(request, file, callback){
+    filename:function(request, file, cb){
         const { originalname } = file;
-       return callback(null, `${uuid.v4()}_${originalname}`); 
+       return cb(null, `${uuidv4()}_${originalname}`); 
     }
 });
 
