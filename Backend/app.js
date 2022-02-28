@@ -4,11 +4,13 @@ import Cards from "./dbCards.js";
 import Cors from "cors";
 import multer from "multer";
 import { v4 as uuidv4 } from 'uuid';
+import path from "path";
 
 const app = express();
 const connection_url = "mongodb+srv://dinesh:dinesh1997@cluster0.cuuqa.mongodb.net/Tinder-DB?retryWrites=true&w=majority"
 
 //  Middlewares
+app.use(express.static("images")); 
 app.use("/images", express.static("images"));
 app.use(express.json());
 app.use(Cors());
@@ -52,10 +54,10 @@ app.post("/tinder/card", upload.single("profile"), (req, res) => {
     //     name: req.body.name,
     //     imgUrl: `http://localhost:8000/images/${req.file.filename}`
     // }
-    // console.log(req.file);
+    console.log(req.file);
     const newData = new Cards({
-        name: req.body.name,
-        imgUrl: `https://tinder-api.herokuapp.com/${req.file.path}`
+      name: req.body.name,
+      imgUrl: `https://tinder-api.herokuapp.com/images/${req.file.path}`,
     });
 
     newData.save()
