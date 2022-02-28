@@ -10,7 +10,7 @@ const app = express();
 const connection_url = "mongodb+srv://dinesh:dinesh1997@cluster0.cuuqa.mongodb.net/Tinder-DB?retryWrites=true&w=majority"
 
 //  Middlewares
-app.use(express.static("images")); 
+//app.use(express.static("images")); 
 app.use("/images", express.static("images"));
 app.use(express.json());
 app.use(Cors());
@@ -30,7 +30,7 @@ const storage = multer.diskStorage({
     // add extension to image
     filename:function(request, file, cb){
         const { originalname } = file;
-       return cb(null, `${uuidv4()}_${originalname}`); 
+       return cb(null, `${uuidv4()}-${originalname}`); 
     }
 });
 
