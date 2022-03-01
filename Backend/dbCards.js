@@ -5,11 +5,15 @@ const cardSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    imgUrl: {
+    imgData: {
         type: String,
         required: true
+    },
+    img: {
+        type: Buffer,
+        required: true
     }
-});
+}, { timestamp: true });
 
 
 export default mongoose.model("card", cardSchema);

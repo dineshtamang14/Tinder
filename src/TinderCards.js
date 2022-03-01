@@ -1,50 +1,54 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import "./TinderCards.css";
-import TinderCard from 'react-tinder-card';
+import TinderCard from "react-tinder-card";
 import axios from "./axios";
 
 function TinderCards() {
-    const [people, setPeople] = useState([]);
-    // console.log(people);
+  const [people, setPeople] = useState([]);
+  // console.log(people);
 
-    useEffect(() => {
-        async function fetchData() {
-            const req = await axios.get("/tinder/cards");
-            
-            setPeople(req.data);
-        }
+  useEffect(() => {
+    async function fetchData() {
+      const req = await axios.get("/tinder/cards");
 
-        fetchData();
-    }, []);
-
-    const swiped = (direction, nameToDelete) => {
-        console.log("removing: " + nameToDelete);
+      setPeople(req.data);
     }
 
-    const outofFrame = (name) => {
-        console.log(name + " Left the screen!")
-    }
+    fetchData();
+  }, []);
 
-  return <div className="tinderCards">
+  const swiped = (direction, nameToDelete) => {
+    console.log("removing: " + nameToDelete);
+  };
+
+  const outofFrame = (name) => {
+    console.log(name + " Left the screen!");
+  };
+
+  return (
+    <div className="tinderCards">
       <div className="tinderCards__cardContainer">
-          {people.map((person) =>(
-              <TinderCard 
-                className="swipe"
-                key={person.name}
-                preventSwipe={["up", "down"]}
-                onSwipe={(dir) => swiped(dir, person.name)}
-                onCardLeftScreen={() => outofFrame(person.name)}
-              >
-                  <div 
-                    style={{ backgroundImage: `url(${person.imgUrl})` }}
-                    className="card"
-                  >
-                      <h3>{person.name}</h3>
-                  </div>
-              </TinderCard>
-          ))}
+        {people.map((person) => (
+          <TinderCard
+            className="swipe"
+            key={person.name}
+            preventSwipe={["up", "down"]}
+            onSwipe={(dir) => swiped(dir, person.name)}
+            onCardLeftScreen={() => outofFrame(person.name)}
+          >
+            <div
+              style={{
+                backgroundImage: `url(https://tinder-api.herokuapp.com/img/${person._id})`,
+              }}
+              className="card"
+            >
+              <h3>{person.name}</h3>
+            </div>
+          </TinderCard>
+        ))}
       </div>
-  </div>;
+    </div>
+  );
 }
 
 export default TinderCards;
