@@ -6,13 +6,13 @@ import upload from "express-fileupload";
 import morgan from "morgan";
 
 const app = express();
-const connection_url = "mongodb+srv://dinesh:dinesh1997@cluster0.cuuqa.mongodb.net/Tinder-DB?retryWrites=true&w=majority"
+const connection_url = "mongodb://emongodb:27017/TinderDB";
 
 //  Middlewares
 // app.use("/images", express.static("images"));
+app.use(Cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(Cors());
 app.use(upload());
 app.use(morgan('dev'));
 // app.use(errHandler);

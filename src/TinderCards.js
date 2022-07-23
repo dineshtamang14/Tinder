@@ -10,7 +10,7 @@ function TinderCards() {
   useEffect(() => {
     async function fetchData() {
       const req = await axios.get("/tinder/cards");
-
+      console.log(req.data);
       setPeople(req.data);
     }
 
@@ -38,7 +38,7 @@ function TinderCards() {
           >
             <div
               style={{
-                backgroundImage: `url(https://tinder-api.herokuapp.com/img/${person._id})`,
+                backgroundImage: `url(http://localhost:8000/img/${person._id})`,
               }}
               className="card"
             >

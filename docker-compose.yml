@@ -1,0 +1,40 @@
+version: '3'
+services:
+  web-server:
+    build: .
+    stdin_open: true
+    ports:
+      - "80:80"
+    networks:
+      - tinder-network
+
+  web-api:
+    restart: always
+    build:
+      context: ./Backend/
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    networks:
+      - tinder-network
+    depends_on:
+      - emongo
+
+  emongodb:
+    image: mongo:3.6.19-xenial
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    networks: 
+      - tinder-network
+    volumes:
+      - tinderdb:/data/db 
+
+networks:
+    tinder-network:
+      driver: bridge
+
+volumes:
+    tinderdb: {}
+    
+    
