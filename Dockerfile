@@ -1,4 +1,4 @@
-FROM node:16-slim AS WEB_BUILD
+FROM node:16-alpine AS WEB_BUILD
 WORKDIR /usr/src/app
 COPY package.json .
 COPY . .

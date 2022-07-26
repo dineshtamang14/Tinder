@@ -1,4 +1,4 @@
-FROM node:16-slim
+FROM node:16-alpine
 LABEL "name"="node-api"
 WORKDIR /usr/src/app
 COPY ./package.json ./
