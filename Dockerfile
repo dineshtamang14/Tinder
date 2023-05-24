@@ -5,7 +5,6 @@ COPY . .
 RUN yarn install
 RUN yarn run build
 
-
 FROM nginx:alpine
 WORKDIR /usr/share/nginx/html
 RUN rm -rf *

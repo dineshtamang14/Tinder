@@ -4,7 +4,7 @@ COPY package.json yarn.lock ./
 COPY . .
 RUN yarn install
 ENV MONGOURL=db
-ENV PORT=4000
+ENV PORT=8000
 EXPOSE $PORT
 ENTRYPOINT ["yarn", "run"]
 CMD ["dev"]

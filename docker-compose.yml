@@ -1,6 +1,6 @@
 version: '3.3'
 services:
-  client:
+  tinder-client:
     build:
       context: .
       dockerfile: Dockerfile
@@ -10,14 +10,16 @@ services:
     networks:
       - tinder-network
     depends_on:
-      - api
-      - db
+      - tinder-api
+      - tinder-db
 
-  api:
+  tinder-api:
     build:
       context: ./Backend/
       dockerfile: Dockerfile
     container_name: tinder-api
+    environment:
+      MONGOURL: tinder-db
     ports:
       - "8000:8000"
     networks:
@@ -25,9 +27,9 @@ services:
     volumes:
       - tinderdata:/usr/src/app
     depends_on:
-      - db
+      - tinder-db
 
-  db:
+  tinder-db:
     image: mongo:3.6.19-xenial
     restart: unless-stopped
     container_name: tinder-db
