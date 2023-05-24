@@ -1,8 +1,8 @@
 import axios from "axios";
-// https://tinder-api.herokuapp.com
+// http://localhost:8000
 
 const instance = axios.create({
-    baseURL: "http://localhost:8000"
+    baseURL: "http://tinder_api:8000"
 })
 
 export default instance;

@@ -5,12 +5,12 @@ const cardSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    imgData: {
+    location: {
         type: String,
         required: true
     },
-    img: {
-        type: Buffer,
+    imageUrl: {
+        type: String,
         required: true
     }
 }, { timestamp: true });

@@ -1,14 +1,14 @@
-FROM node:16-alpine AS WEB_BUILD
+FROM node:16.17-alpine3.15 AS BUILDER
 WORKDIR /usr/src/app
-COPY package.json .
+COPY package.json yarn.lock ./
 COPY . .
-RUN npm install
-RUN npm run build
+RUN yarn install
+RUN yarn run build
 
 
 FROM nginx:alpine
 WORKDIR /usr/share/nginx/html
 RUN rm -rf *
-COPY --from=WEB_BUILD /usr/src/app/build .
+COPY --from=BUILDER /usr/src/app/build .
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]

@@ -1,7 +1,10 @@
-FROM node:16-alpine
-LABEL "name"="node-api"
+FROM node:16.17-alpine3.15
 WORKDIR /usr/src/app
-COPY ./package.json ./
+COPY package.json yarn.lock ./
 COPY . .
-EXPOSE 8000
-CMD ["server.js"]
+RUN yarn install
+ENV MONGOURL=db
+ENV PORT=4000
+EXPOSE $PORT
+ENTRYPOINT ["yarn", "run"]
+CMD ["dev"]
