@@ -1,10 +1,10 @@
 FROM node:16.17-alpine3.15 AS BUILDER
 WORKDIR /usr/src/app
 COPY package.json yarn.lock ./
-COPY . .
 RUN yarn install
 ARG API_URL=tinder-api
 ENV REACT_APP_API_URL=$API_URL
+COPY . .
 RUN yarn run build
 
 FROM nginx:alpine

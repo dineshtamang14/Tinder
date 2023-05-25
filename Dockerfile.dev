@@ -1,0 +1,7 @@
+FROM node:16.17-alpine3.15 AS BUILDER
+WORKDIR /usr/src/app
+COPY package.json yarn.lock ./
+RUN yarn install
+COPY . .
+ENV API_URL=tinder-api
+CMD ["yarn", "run", "start"]
