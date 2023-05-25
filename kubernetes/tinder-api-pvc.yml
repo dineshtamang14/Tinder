@@ -4,7 +4,7 @@ metadata:
   name: ebs-tinder-api-pvc
 spec:
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   storageClassName: ebs-sc
   resources:
     requests:
