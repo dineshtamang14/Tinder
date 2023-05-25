@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tinder-client
+  labels:
+    app: tinder-client
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tinder-client
+  template:
+    metadata:
+      labels:
+        app: tinder-client
+    spec:
+      initContainers:
+        - name: init-db
+          image: busybox:1.31
+          command: ['sh', '-c', 'echo -e "Checking for the availability of MongoDB Server deployment"; while ! nc -z mongodb-svc 27017; do sleep 1; printf "-"; done; echo -e "  >> MongoDB Server has started";']
+      containers:
+        - name: tinder-client
+          image: dineshtamang14/tinder-client:dev
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
+          env:
+            - name: API_URL
+              value: tinder-api-svc
