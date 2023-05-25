@@ -3,8 +3,8 @@ WORKDIR /usr/src/app
 COPY package.json yarn.lock ./
 COPY . .
 RUN yarn install
-ENV MONGOURL=db
 ENV PORT=8000
+ENV MONGOURL=db
 EXPOSE $PORT
 ENTRYPOINT ["yarn", "run"]
 CMD ["dev"]
