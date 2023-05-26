@@ -8,9 +8,6 @@ spec:
   selector:
     matchLabels:
       app: mongodb
-  persistentVolumeClaimRetentionPolicy:
-    whenDeleted: Delete
-    whenScaled: Delete
   template:
     metadata:
       labels:
