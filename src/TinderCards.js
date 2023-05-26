@@ -6,6 +6,7 @@ import axios from "./axios";
 function TinderCards() {
   const [people, setPeople] = useState([]);
   // console.log(people);
+  const url = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
     async function fetchData() {
@@ -38,7 +39,7 @@ function TinderCards() {
           >
             <div
               style={{
-                backgroundImage: `url(http://localhost:8000/img/${person._id})`,
+                backgroundImage: `url(http://${url}/img/${person._id})`,
                 // backgroundImage: `url(http://localhost:8000/${person.imageUrl})`,
               }}
               className="card"

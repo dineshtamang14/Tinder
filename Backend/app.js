@@ -13,7 +13,12 @@ import morgan from "morgan";
 const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-const connection_url = `mongodb://${process.env.MONGOURL}:27017/TinderDB`;
+// const connection_url = `mongodb://${process.env.MONGOURL}:27017/TinderDB`;
+
+const mongoHost = process.env.MONGO_HOST;
+const mongoPort = process.env.MONGO_PORT;
+
+const connection_url = `mongodb://${mongoHost}:${mongoPort}`;
 
 //  Middlewares
 // app.use("/images", express.static("images"));
@@ -37,9 +42,15 @@ const upload = multer({
 
 // DB config
 mongoose.connect(connection_url, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
+  serverSelectionTimeoutMS: 60000, // Increase timeout to 60 seconds
+}).then(() => {
+  // Connection successful
+}).catch((error) => {
+  console.error('Failed to connect to MongoDB:', error);
 });
+
+// useNewUrlParser: true,
+// useUnifiedTopology: true
 
 // API Endpoints
 app.get("/", (req, res) =>res.status(200).json("Hollo, world!"));    

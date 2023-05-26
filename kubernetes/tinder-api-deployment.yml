@@ -17,33 +17,24 @@ spec:
       initContainers:
         - name: init-db
           image: busybox:1.31
-          command: ['sh', '-c', 'echo -e "Checking for the availability of MongoDB Server deployment"; while ! nc -z mongodb-svc 27017; do sleep 1; printf "-"; done; echo -e "  >> MongoDB Server has started";']
+          command: ['sh', '-c', 'echo -e "Checking for the availability of MongoDB Server deployment"; while ! nc -z mongodb-service 27017; do sleep 1; printf "-"; done; echo -e "  >> MongoDB Server has started";']
       containers:
-        - name: tinder-client
+        - name: tinder-api
           image: dineshtamang14/tinder-api
           imagePullPolicy: Always
-          readinessProbe:
-            httpGet:
-              path: /
-              port: 8000
-            initialDelaySeconds: 5
-            periodSeconds: 10
-          livenessProbe:
-            httpGet:
-              path: /
-              port: 8000
-            initialDelaySeconds: 15
-            periodSeconds: 30
           ports:
             - containerPort: 8000
           env:
-            - name: MONGOURL
-              value: mongodb-svc
-          volumeMounts:
-            - name: tinder-api-storage
-              mountPath: /usr/src/app
+            - name: MONGO_HOST
+              value: "mongodb-service"
+            - name: MONGO_PORT
+              value: "27017"
 
-      volumes:
-        - name: tinder-api-storage
-          persistentVolumeClaim:
-            claimName: ebs-tinder-api-pvc
+      #     volumeMounts:
+      #       - name: tinder-api-storage
+      #         mountPath: /usr/src/app
+
+      # volumes:
+      #   - name: tinder-api-storage
+      #     persistentVolumeClaim:
+      #       claimName: ebs-tinder-api-pvc
